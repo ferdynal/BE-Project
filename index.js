@@ -1,15 +1,16 @@
 const express = require('express')
 const app = express()
-const db = require('./database')
+const db = require('./1-database')
 const bodyParser = require('body-parser')
 const port = 5000
 
 app.use(bodyParser.json())
 
-const {authRoute, profileRoute} = require('./router')
+const {authRoute} = require('./3-router')
 
 app.use('/users', authRoute)
-app.use('/profile', profileRoute)
+// app.use('/profile', profileRoute)
+// app.use('/detail', jobsDetailRoute)
 
 // check connection to database
 db.connect((err) => {

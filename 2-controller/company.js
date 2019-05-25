@@ -1,5 +1,6 @@
 const db = require('../1-database');
 
+// ============================== PROFILE COMPANY ============================== //
 exports.addCompany = (req, res) => {
     var sqlSearchByEmail = `SELECT * FROM users WHERE email = '${req.body.email}'`;
     db.query(sqlSearchByEmail, (err, result) => {
@@ -35,23 +36,6 @@ exports.addCompany = (req, res) => {
     })
 }
 
-exports.profileCompany = (req, res) => {
-    // console.log(req.params)
-    var id = req.params.id_users;
-    var sqlProfileCompany = `SELECT * FROM profile_company WHERE id_users = '${id}'`;
-    db.query(sqlProfileCompany, (err, result) => {
-        // console.log(result)
-        res.send(result);
-    })
-}
-
-exports.listCompany = (req, res) => {
-    var sqlListCompany = `SELECT id_users, name_company, logo, location, desc_industry FROM profile_company`;
-    db.query(sqlListCompany, (err, result) => {
-        res.send(result);
-    })
-}
-
 exports.updateProfile = (req, res) => {
     var sqlSearchByEmail = `SELECT * FROM users WHERE email = '${req.body.email}'`;
     db.query(sqlSearchByEmail, (err, result) => {
@@ -77,3 +61,23 @@ exports.updateProfile = (req, res) => {
         })
     })
 }
+
+// ============================== DETAIL COMPANY ============================== //
+exports.detailCompany = (req, res) => {
+    // console.log(req.params)
+    var id = req.params.id_users;
+    var sqlDetailCompany = `SELECT * FROM profile_company WHERE id_users = '${id}'`;
+    db.query(sqlDetailCompany, (err, result) => {
+        // console.log(result)
+        res.send(result);
+    })
+}
+
+// ============================== LIST COMPANY ============================== //
+exports.listCompany = (req, res) => {
+    var sqlListCompany = `SELECT id_users, name_company, logo, location, desc_industry FROM profile_company`;
+    db.query(sqlListCompany, (err, result) => {
+        res.send(result);
+    })
+}
+

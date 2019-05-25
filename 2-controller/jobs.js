@@ -1,5 +1,6 @@
 const db = require('../1-database');
 
+// ============================== JOBS ============================== //
 exports.addJobs = (req, res) => {
     var id = req.params.id_users;
     var data = {
@@ -24,6 +25,28 @@ exports.addJobs = (req, res) => {
 
 }
 
+exports.updateJobs = (req, res) => {
+    var id = req.params.id_users;
+    var {job_req, requirements, location, salary, date_post, date_expire, culture, required_skills} = req.body
+    var sqlUpdateJobs = `UPDATE jobs SET
+                         job_req = '${job_req}',
+                         requirements = '${requirements}',
+                         location = '${location}',
+                         salary = ${salary},
+                         date_post = '${date_post}',
+                         date_expire = '${date_expire}',
+                         culture = '${culture}',
+                         required_skills = '${required_skills}'
+                         WHERE id_users = ${id}`;
+    db.query(sqlUpdateJobs, (err, result) => {
+        // console.log(result)
+        if (err) {
+            return res.json({error: err.message});
+        }
+        res.json({message : 'Update jobs success'});
+    })
+}
+
 exports.deleteJobs = (req, res) => {
     //console.log(req.params)
     var id = req.params.id;
@@ -36,6 +59,20 @@ exports.deleteJobs = (req, res) => {
     })
 }
 
-// exports.updateJobs = (req, res) => {
+// ============================== JOBS DETAIL ============================== //
+exports.jobsDetail = (req, res) => {
+    var id = req.params.id_users;
+    var sqlJobsDetail = `SELECT * FROM jobs WHERE id_users = ${id}`;
+    db.query(sqlJobsDetail, (err, result) => {
+        res.send(result)
+    })
 
-// }
+}
+
+// ============================== JOBS LIST ============================== //
+exports.listJobs = (req, res) => {
+    var sqlListJobs = `SELECT id_users, job_req, location, salary, date_post FROM jobs`;
+    db.query(sqlListJobs, (err, result) => {
+        res.send(result);
+    })
+}

@@ -1,6 +1,6 @@
 const db = require('../1-database');
 
-
+// ============================== PROFILE EMPLOYEE ============================== //
 exports.addEmployee = (req, res) => {
     var sqlSearchByEmail = `SELECT * FROM users WHERE email = '${req.body.email}'`;
     db.query(sqlSearchByEmail, (err, result) => {
@@ -67,5 +67,16 @@ exports.updateProfile = (req, res) => {
             }
             res.json({message : 'Update profile success'})
         })
+    })
+}
+
+// ============================== DETAIL EMPLOYEE ============================== //
+exports.detailEmployee = (req, res) => {
+    // console.log(req.params)
+    var id = req.params.id_users;
+    var sqlDetailEmployee = `SELECT * FROM profile_employee WHERE id_users = '${id}'`;
+    db.query(sqlDetailEmployee, (err, result) => {
+        // console.log(result)
+        res.send(result);
     })
 }

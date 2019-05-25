@@ -1,7 +1,8 @@
 const route = require('express').Router();
-const {addEmployee, updateProfile} = require('../2-controller/employee')
+const {addEmployee, updateProfile, detailEmployee} = require('../2-controller/employee')
 
 route.post('/create-profile', addEmployee);
-route.post('/update-profile', updateProfile)
+route.put('/update-profile', updateProfile);
+route.get('/detail-profile/:id_users', detailEmployee);
 
 module.exports = route
